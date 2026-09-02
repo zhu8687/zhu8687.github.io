@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>主营业务 - 摩尔信息科技</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0b1c2c;
+      --muted: #5a6b7c;
+      --line: rgba(11, 28, 44, 0.08);
+      --cyan: #00a8b8;
+      --surface: #f7fafc;
+      --nav: rgba(247, 250, 252, 0.86);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    .site-nav {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+      padding: 1rem 6%;
+      background: var(--nav); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .brand {
+      font-family: Outfit, "Noto Sans SC", sans-serif;
+      font-weight: 700; font-size: 1.15rem; letter-spacing: 0.04em;
+      display: flex; align-items: center; gap: 0.55rem;
+    }
+    .brand-mark {
+      width: 28px; height: 28px; border-radius: 6px;
+      background: linear-gradient(135deg, var(--cyan), #0b3a4a);
+      position: relative; overflow: hidden;
+    }
+    .brand-mark::after {
+      content: ""; position: absolute; inset: 7px;
+      border: 2px solid #fff; border-radius: 2px; opacity: 0.9;
+    }
+    .site-nav ul { display: flex; gap: 1.75rem; list-style: none; flex-wrap: wrap; }
+    .site-nav a { font-size: 0.95rem; color: var(--muted); transition: color 0.25s ease; }
+    .site-nav a:hover, .site-nav a.active { color: var(--ink); }
+
+    .page-hero {
+      position: relative; min-height: 42vh;
+      display: flex; align-items: flex-end;
+      padding: 0 6% 3.5rem; color: #fff; overflow: hidden; isolation: isolate;
+    }
+    .page-hero img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: -2;
+      animation: heroZoom 16s ease-out forwards;
+    }
+    .page-hero::after {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: linear-gradient(105deg, rgba(7,18,28,0.88), rgba(7,18,28,0.4));
+    }
+    .page-hero h1 {
+      font-family: Outfit, "Noto Sans SC", sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
+      animation: riseIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .page-hero p {
+      margin-top: 0.5rem; color: rgba(255,255,255,0.75);
+      animation: riseIn 0.8s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .section {
+      max-width: 1100px; margin: 0 auto; padding: 4.5rem 6%;
+      display: grid; gap: 3.5rem;
+    }
+    .service {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 2rem; align-items: center;
+      opacity: 0; animation: riseIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .service:nth-child(1) { animation-delay: 0.05s; }
+    .service:nth-child(2) { animation-delay: 0.15s; }
+    .service:nth-child(3) { animation-delay: 0.25s; }
+    .service:nth-child(4) { animation-delay: 0.35s; }
+    .service:nth-child(even) .service-media { order: 2; }
+    .service:nth-child(even) .service-text { order: 1; }
+    .service-media {
+      aspect-ratio: 16 / 10; overflow: hidden; background: #e8eef3;
+    }
+    .service-media img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .service:hover .service-media img { transform: scale(1.04); }
+    .service-index {
+      font-family: Outfit, sans-serif;
+      font-size: 0.78rem; letter-spacing: 0.18em; color: var(--cyan);
+      margin-bottom: 0.5rem;
+    }
+    .service-text h2 { font-size: 1.4rem; margin-bottom: 0.65rem; }
+    .service-text p { color: var(--muted); max-width: 38ch; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem 6%; text-align: center; color: var(--muted); font-size: 0.9rem;
+    }
+
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes heroZoom {
+      from { transform: scale(1.06); }
+      to { transform: scale(1); }
+    }
+    @media (max-width: 820px) {
+      .site-nav { flex-direction: column; align-items: flex-start; }
+      .page-hero { min-height: 34vh; }
+      .service, .service:nth-child(even) { grid-template-columns: 1fr; }
+      .service:nth-child(even) .service-media,
+      .service:nth-child(even) .service-text { order: unset; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      摩尔信息科技
+    </a>
+    <ul>
+      <li><a href="index.html">首页</a></li>
+      <li><a href="about.html">公司简介</a></li>
+      <li><a class="active" href="business.html">主营业务</a></li>
+      <li><a href="contact.html">联系我们</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-hero">
+    <img
+      src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1600&q=80"
+      alt="软件开发代码界面"
+      width="1600"
+      height="900">
+    <div>
+      <h1>主营业务</h1>
+      <p>覆盖研发、平台建设与持续运维</p>
+    </div>
+  </header>
+
+  <main class="section">
+    <article class="service">
+      <div class="service-media">
+        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80" alt="移动App开发" width="1200" height="750">
+      </div>
+      <div class="service-text">
+        <p class="service-index">01 / APP</p>
+        <h2>移动 App 定制开发</h2>
+        <p>iOS、安卓原生及跨平台应用开发，面向企业业务场景定制开发各类移动应用，完成产品从需求、设计到上线完整流程。</p>
+      </div>
+    </article>
+
+    <article class="service">
+      <div class="service-media">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" alt="Web管理系统" width="1200" height="750">
+      </div>
+      <div class="service-text">
+        <p class="service-index">02 / WEB</p>
+        <h2>Web 管理系统开发</h2>
+        <p>企业后台管理系统、官网、业务平台开发，实现业务数据管理、流程管控，适配电脑与移动端访问。</p>
+      </div>
+    </article>
+
+    <article class="service">
+      <div class="service-media">
+        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80" alt="数字化转型" width="1200" height="750">
+      </div>
+      <div class="service-text">
+        <p class="service-index">03 / TRANSFORM</p>
+        <h2>数字化转型技术服务</h2>
+        <p>为传统企业提供数字化改造方案，包含技术咨询、系统对接、数据服务，帮助企业提升业务效率。</p>
+      </div>
+    </article>
+
+    <article class="service">
+      <div class="service-media">
+        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80" alt="技术运维支持" width="1200" height="750">
+      </div>
+      <div class="service-text">
+        <p class="service-index">04 / SUPPORT</p>
+        <h2>软件运维与技术支持</h2>
+        <p>软件上线后持续维护、版本迭代、故障排查，提供长期技术保障，保障业务系统稳定运行。</p>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>© 2026 长沙摩尔信息科技有限公司 版权所有</p>
+  </footer>
+</body>
+</html>

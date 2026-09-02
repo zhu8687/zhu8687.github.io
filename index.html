@@ -1,20 +1,494 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>长沙摩尔信息科技有限公司</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>摩尔信息科技 - 首页</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0b1c2c;
+      --muted: #5a6b7c;
+      --line: rgba(11, 28, 44, 0.08);
+      --cyan: #00a8b8;
+      --cyan-deep: #007a86;
+      --fog: #eef3f7;
+      --surface: #f7fafc;
+      --nav: rgba(247, 250, 252, 0.86);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* —— Nav —— */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1rem 6%;
+      background: var(--nav);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      font-family: Outfit, "Noto Sans SC", sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, var(--cyan), #0b3a4a);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border: 2px solid #fff;
+      border-radius: 2px;
+      opacity: 0.9;
+    }
+
+    .site-nav ul {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .site-nav a {
+      font-size: 0.95rem;
+      color: var(--muted);
+      transition: color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active { color: var(--ink); }
+
+    /* —— Hero —— */
+    .hero {
+      position: relative;
+      min-height: min(92vh, 820px);
+      display: flex;
+      align-items: flex-end;
+      padding: 0 6% 7vh;
+      color: #fff;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+    }
+
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.04);
+      animation: heroZoom 18s ease-out forwards;
+    }
+
+    .hero-scrim {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(105deg, rgba(7, 18, 28, 0.88) 0%, rgba(7, 18, 28, 0.55) 48%, rgba(7, 18, 28, 0.25) 100%),
+        radial-gradient(ellipse at 80% 20%, rgba(0, 168, 184, 0.28), transparent 45%);
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to top, transparent, #000 40%);
+      animation: gridDrift 24s linear infinite;
+      pointer-events: none;
+    }
+
+    .hero-copy {
+      max-width: 640px;
+      animation: riseIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .hero-brand {
+      font-family: Outfit, "Noto Sans SC", sans-serif;
+      font-size: clamp(2.6rem, 6vw, 4.4rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.05;
+      margin-bottom: 1rem;
+    }
+
+    .hero-brand span {
+      display: block;
+      font-size: 0.38em;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.55rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.25rem, 2.4vw, 1.65rem);
+      font-weight: 500;
+      margin-bottom: 0.85rem;
+      max-width: 28ch;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: rgba(255, 255, 255, 0.78);
+      max-width: 36ch;
+      margin-bottom: 1.75rem;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 1.45rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-radius: 4px;
+      transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: var(--cyan);
+      color: #042028;
+    }
+
+    .btn-primary:hover { background: #2bc4d2; }
+
+    .btn-ghost {
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #fff;
+      background: transparent;
+    }
+
+    .btn-ghost:hover {
+      border-color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* —— Sections —— */
+    .section {
+      padding: 5.5rem 6%;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .section-head {
+      margin-bottom: 2.75rem;
+      animation: riseIn 0.8s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .section-head h2 {
+      font-family: Outfit, "Noto Sans SC", sans-serif;
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      margin-bottom: 0.55rem;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 42ch;
+      font-size: 1.02rem;
+    }
+
+    .features {
+      display: grid;
+      gap: 3.5rem;
+    }
+
+    .feature {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 2.5rem;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(18px);
+      animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .feature:nth-child(1) { animation-delay: 0.15s; }
+    .feature:nth-child(2) { animation-delay: 0.28s; }
+    .feature:nth-child(3) { animation-delay: 0.4s; }
+
+    .feature:nth-child(even) .feature-media { order: 2; }
+    .feature:nth-child(even) .feature-text { order: 1; }
+
+    .feature-media {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 10;
+      background: var(--fog);
+    }
+
+    .feature-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .feature:hover .feature-media img { transform: scale(1.04); }
+
+    .feature-media::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cyan), transparent);
+    }
+
+    .feature-index {
+      font-family: Outfit, sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      color: var(--cyan-deep);
+      margin-bottom: 0.65rem;
+    }
+
+    .feature-text h3 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-bottom: 0.7rem;
+    }
+
+    .feature-text p {
+      color: var(--muted);
+      font-size: 1.02rem;
+      max-width: 36ch;
+    }
+
+    /* —— CTA band —— */
+    .cta-band {
+      margin: 0 6% 5rem;
+      padding: 3.25rem 8%;
+      background:
+        linear-gradient(120deg, #0b1c2c 0%, #123248 55%, #0a3d46 100%);
+      color: #fff;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-band::before {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      right: -60px;
+      top: -80px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 168, 184, 0.35), transparent 70%);
+      animation: pulseSoft 5s ease-in-out infinite;
+    }
+
+    .cta-band h2 {
+      font-family: Outfit, "Noto Sans SC", sans-serif;
+      font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+      font-weight: 600;
+      position: relative;
+    }
+
+    .cta-band p {
+      color: rgba(255, 255, 255, 0.72);
+      margin-top: 0.4rem;
+      position: relative;
+    }
+
+    .cta-band .btn-primary { position: relative; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem 6%;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes heroZoom {
+      from { transform: scale(1.08); }
+      to { transform: scale(1); }
+    }
+
+    @keyframes gridDrift {
+      from { background-position: 0 0, 0 0; }
+      to { background-position: 56px 56px, 56px 56px; }
+    }
+
+    @keyframes pulseSoft {
+      0%, 100% { opacity: 0.55; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.08); }
+    }
+
+    @media (max-width: 820px) {
+      .site-nav { flex-direction: column; align-items: flex-start; }
+      .hero { min-height: 78vh; padding-bottom: 5vh; }
+      .feature,
+      .feature:nth-child(even) {
+        grid-template-columns: 1fr;
+      }
+      .feature:nth-child(even) .feature-media,
+      .feature:nth-child(even) .feature-text { order: unset; }
+      .cta-band { margin: 0 4% 3.5rem; padding: 2.5rem 6%; }
+    }
+  </style>
 </head>
 <body>
-    <h1>长沙摩尔信息科技有限公司</h1>
+  <nav class="site-nav">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      摩尔信息科技
+    </a>
+    <ul>
+      <li><a class="active" href="index.html">首页</a></li>
+      <li><a href="about.html">公司简介</a></li>
+      <li><a href="business.html">主营业务</a></li>
+      <li><a href="contact.html">联系我们</a></li>
+    </ul>
+  </nav>
 
-    <h3>公司简介</h3>
-    <p>长沙摩尔信息科技有限公司坐落于长沙星沙核心商圈，是一家深耕软件与信息技术领域的科创企业。公司专注数字化技术研发与落地服务，具备成熟的技术研发与项目实施能力。主营基础及支撑软件、公交高新信息网络、应用软件开发，提供软件技术转让、技术服务；开展人脸识别、积分管理软件研发，AR/VR 制作、人工智能应用，电商与网络平台建设、系统集成、信息技术咨询等业务。企业坚持合规经营，恪守业务规范，以技术创新为内核，凭借专业技术与优质服务，为各行业输出稳定高效的信息化解决方案，赋能产业数字化升级。</p>
+  <header class="hero">
+    <div class="hero-media">
+      <img
+        src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80"
+        alt="芯片与电路板特写"
+        width="1920"
+        height="1080">
+    </div>
+    <div class="hero-scrim"></div>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <p class="hero-brand"><span>MOORE TECH</span>摩尔信息科技</p>
+      <h1>以技术构建企业数字化底座</h1>
+      <p>专注移动应用研发与数字化技术服务，为企业交付可落地的完整解决方案。</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="business.html">了解业务</a>
+        <a class="btn btn-ghost" href="contact.html">联系我们</a>
+      </div>
+    </div>
+  </header>
 
-    <h3>联系我们</h3>
-    <p>公司地址：湖南省长沙县金井镇惠农村楼利坡组101</p>
-    <p>联系电话：19084654530</p>
-    <p>企业邮箱：postmaster@iosgame.online</p>
+  <section class="section">
+    <div class="section-head">
+      <h2>我们的优势</h2>
+      <p>从产品研发到持续运维，覆盖数字化落地全链路。</p>
+    </div>
 
+    <div class="features">
+      <article class="feature">
+        <div class="feature-media">
+          <img
+            src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80"
+            alt="移动应用开发场景"
+            width="1200"
+            height="750">
+        </div>
+        <div class="feature-text">
+          <p class="feature-index">01 / MOBILE</p>
+          <h3>移动应用研发</h3>
+          <p>移动端 App 定制开发，跨平台技术落地，满足企业数字化业务需求。</p>
+        </div>
+      </article>
+
+      <article class="feature">
+        <div class="feature-media">
+          <img
+            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80"
+            alt="地球数字化网络可视化"
+            width="1200"
+            height="750">
+        </div>
+        <div class="feature-text">
+          <p class="feature-index">02 / DIGITAL</p>
+          <h3>数字化解决方案</h3>
+          <p>面向各行业提供数字化转型技术支持，提升企业运营效率。</p>
+        </div>
+      </article>
+
+      <article class="feature">
+        <div class="feature-media">
+          <img
+            src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80"
+            alt="数据中心机房运维"
+            width="1200"
+            height="750">
+        </div>
+        <div class="feature-text">
+          <p class="feature-index">03 / OPS</p>
+          <h3>技术运维支持</h3>
+          <p>7×24 技术保障，产品上线后持续迭代维护，保障业务稳定运行。</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <aside class="cta-band">
+    <div>
+      <h2>准备启动下一个数字化项目？</h2>
+      <p>告诉我们你的业务场景，我们给出可落地的技术路径。</p>
+    </div>
+    <a class="btn btn-primary" href="contact.html">立即咨询</a>
+  </aside>
+
+  <footer>
+    <p>© 2026 长沙摩尔信息科技有限公司 版权所有</p>
+  </footer>
 </body>
 </html>
