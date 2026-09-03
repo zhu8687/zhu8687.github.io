@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-i18n-title="contact.title">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>联系我们 - 摩尔信息科技</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,11 +33,11 @@
     }
     .brand {
       font-family: Outfit, "Noto Sans SC", sans-serif;
-      font-weight: 700; font-size: 1.15rem; letter-spacing: 0.04em;
-      display: flex; align-items: center; gap: 0.55rem;
+      font-weight: 700; font-size: clamp(0.85rem, 1.5vw, 1.15rem); letter-spacing: 0.04em;
+      display: flex; align-items: center; gap: 0.55rem; min-width: 0;
     }
     .brand-mark {
-      width: 28px; height: 28px; border-radius: 6px;
+      width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0;
       background: linear-gradient(135deg, var(--cyan), #0b3a4a);
       position: relative; overflow: hidden;
     }
@@ -45,9 +45,23 @@
       content: ""; position: absolute; inset: 7px;
       border: 2px solid #fff; border-radius: 2px; opacity: 0.9;
     }
+    .nav-right {
+      display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; justify-content: flex-end;
+    }
     .site-nav ul { display: flex; gap: 1.75rem; list-style: none; flex-wrap: wrap; }
     .site-nav a { font-size: 0.95rem; color: var(--muted); transition: color 0.25s ease; }
     .site-nav a:hover, .site-nav a.active { color: var(--ink); }
+    .lang-switch {
+      display: inline-flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; flex-shrink: 0;
+    }
+    .lang-switch button {
+      border: none; background: transparent; padding: 0.4rem 0.7rem;
+      font-size: 0.78rem; font-family: Outfit, "Noto Sans SC", sans-serif; font-weight: 600;
+      letter-spacing: 0.04em; cursor: pointer; color: var(--muted);
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .lang-switch button:hover { color: var(--ink); }
+    .lang-switch button.active { background: var(--ink); color: #fff; }
 
     .page-hero {
       position: relative; min-height: 42vh;
@@ -116,25 +130,27 @@
       from { transform: scale(1.06); }
       to { transform: scale(1); }
     }
-    @media (max-width: 820px) {
-      .site-nav { flex-direction: column; align-items: flex-start; }
-      .page-hero { min-height: 34vh; }
-      .row { grid-template-columns: 1fr; gap: 0.25rem; }
-    }
   </style>
+  <link rel="stylesheet" href="common.css">
 </head>
 <body>
   <nav class="site-nav">
     <a class="brand" href="index.html">
       <span class="brand-mark" aria-hidden="true"></span>
-      摩尔信息科技
+      <span data-i18n="brand">长沙摩尔信息科技有限公司</span>
     </a>
-    <ul>
-      <li><a href="index.html">首页</a></li>
-      <li><a href="about.html">公司简介</a></li>
-      <li><a href="business.html">主营业务</a></li>
-      <li><a class="active" href="contact.html">联系我们</a></li>
-    </ul>
+    <div class="nav-right">
+      <ul>
+        <li><a href="index.html" data-i18n="nav.home">首页</a></li>
+        <li><a href="about.html" data-i18n="nav.about">公司简介</a></li>
+        <li><a href="business.html" data-i18n="nav.business">主营业务</a></li>
+        <li><a class="active" href="contact.html" data-i18n="nav.contact">联系我们</a></li>
+      </ul>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="zh" class="active">中文</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+    </div>
   </nav>
 
   <header class="page-hero">
@@ -144,31 +160,33 @@
       width="1600"
       height="900">
     <div>
-      <h1>联系我们</h1>
-      <p>业务咨询与合作对接</p>
+      <h1 data-i18n="contact.hero">联系我们</h1>
+      <p data-i18n="contact.heroSub">业务咨询与合作对接</p>
     </div>
   </header>
 
   <main class="container">
     <div class="contact-panel">
-      <h2>长沙摩尔信息科技有限公司</h2>
+      <h2 data-i18n="contact.company">长沙摩尔信息科技有限公司</h2>
       <div class="row">
-        <span class="label">地址</span>
-        <span class="value">湖南省长沙县金井镇惠农村楼利坡组101</span>
+        <span class="label" data-i18n="contact.addrLabel">地址</span>
+        <span class="value" data-i18n="contact.addr">湖南省长沙县金井镇惠农村楼利坡组101</span>
       </div>
       <div class="row">
-        <span class="label">邮箱</span>
+        <span class="label" data-i18n="contact.emailLabel">邮箱</span>
         <span class="value"><a href="mailto:postmaster@iosgame.online">postmaster@iosgame.online</a></span>
       </div>
       <div class="row">
-        <span class="label">时间</span>
-        <span class="value">周一至周五 9:00–18:00</span>
+        <span class="label" data-i18n="contact.timeLabel">时间</span>
+        <span class="value" data-i18n="contact.time">周一至周五 9:00–18:00</span>
       </div>
     </div>
   </main>
 
   <footer>
-    <p>© 2026 长沙摩尔信息科技有限公司 版权所有</p>
+    <p data-i18n="footer">© 2026 长沙摩尔信息科技有限公司 版权所有</p>
   </footer>
+
+  <script src="lang.js"></script>
 </body>
 </html>
